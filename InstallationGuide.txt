@@ -1,0 +1,47 @@
+Installation de Virtual Box: https://www.virtualbox.org
+Installation de Ubuntu:
+Lien pour telecharger Ubuntu:
+https://ubuntu.com/download/desktop/thank-you?version=20.04.4&architecture=amd64
+Torrent:https://releases.ubuntu.com/20.04/ubuntu-20.04.4-desktop-amd64.iso.torrent?_ga=2.97407583.1998627302.1648664119-811891560.1645407734
+Video explicative de l'installation d'ubuntu: https://www.youtube.com/watch?v=x5MhydijWmc
+Pour donner une adresse ip privé à votre machine virtuel et pouvoir la connecter directement au modem faudra aller dans "CONFIGURATION" ensuite Réseau ensuite choisir dans le mode d'acces reéseau : accés par pont.
+En installant Ubuntu il vous demandera de donner un mot de passe à votre compte, Faut savoir que à ce moment là votre clavier dans la machine virtuelle est en qwerty donc faut faire attention à ne pas se tromper car aprés l'installation votre clavier passera en AZERTY
+Pour installer Asterisk il faudra executer les commandes suivantes dans le Terminal:
+sudo apt update && sudo apt upgrade
+sudo apt install net-tools
+ifconfig                                               (faudra voir l'adresse ip de votre machine qui se trouvera en haut de ce qu'a affiché cette commande)
+sudo apt install wget build-essential subversion
+cd /usr/src/
+sudo wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-18-current.tar.gz
+sudo tar zxf asterisk-18-current.tar.gz
+cd asterisk-18.*/
+sudo contrib/scripts/get_mp3_source.sh
+sudo contrib/scripts/install_prereq install                (Ici faudra chosir l'indicatif telephonique de l'algerie +213)
+sudo ./configure
+sudo make menuselect                                       (Ici faudra cocher la case format_mp3 ensuite cliquer sur save & exit)
+sudo make -j2
+sudo make install
+sudo make samples
+sudo make config
+sudo ldconfig
+sudo systemctl start asterisk
+sudo asterisk -vvvr
+exit
+sudo ufw allow 5060/udp
+cd /etc/asterisk
+sudo chmod 777 *
+Ensuite faudra télécharger les fichiers sip.conf extensions.conf et voicemail.conf à partir de ce lien : https://drive.google.com/drive/folders/1mqL6SJNjfWgePpNUx7tToDtjjoNeYlrf?usp=sharing
+(Vous pouvez télécharger ces fichiers directement dans votre machine virtuelle)
+Il faudra copier les fichiers suivant dans le repertoire /etc/asterisk que cous trouverez en ouvrant l'explorateur de fichiers, ensuite allez dans other locations (tout en bas, là ou vous trouverez un +), ensuite cliquez sur computer, ensuite etc, ensuite asterisk, et copier les 3 fichiers dedans.
+en faisant ceci faudra revenir au terminal et éxecuter les commandes suivantes :
+sudo asterisk -vvvr
+module load chan_sip.so
+reload
+sip show peers
+En faisant la derniere commande vous verrez les clients qui ne sont pas encore connecté.
+Pour vous connecter il vous faudra un softphone (3cxphone,Zoiper,microSIP sur PC)(mizudroid,Zoiper sur telephone)(C'est pour le softphone dont vous avez besoin de voir l'adresse ip de votre machine)
+Pour vous connecter à l'aide de ces softphones, il vous faudra l'id du client ainsi que le mot de passe contenu dans Sip.conf, dans le cas des fichiers que je vous partage, C'est client 1: id:7001 mdp:7001 client2: id:7002 mdp:7002
+Vous pouvez vous aider à partir des videos suivantes:https://www.youtube.com/watch?v=rtHFdhCm434&t=93s (celle-ci est bien mais il se pourrait que ça ne marche pas pour vous)
+https://www.youtube.com/watch?v=Mm0P1aiB_bo (dans votre cas, faudra commencer cette video à partir de 4min20, celle ci est bien aussi mais il s'agit d'une configuration d'une machine virtuelle qui n'est pas comme virtual box mais il ne y'a que quelques details qui changent comme la copie des fichiers de configuration)
+https://www.youtube.com/watch?v=JlrIXplARPg (pour la configuration de votre softphone 3cx)
+Si vous rencontrez des problémes vous pouvez me contacter sur Facebook: Sofiane Chikh Email:sofianechikhso@gmail.com
