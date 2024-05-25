@@ -51,7 +51,7 @@ exit
 sudo ufw allow 5060/udp
 cd /etc/asterisk
 sudo chmod 777 *
-Téléchargement des fichiers de configuration
+## Téléchargement des fichiers de configuration
 Téléchargez les fichiers sip.conf, extensions.conf et voicemail.conf à partir de ce lien et copiez-les dans le répertoire /etc/asterisk.
 https://drive.google.com/drive/folders/1mqL6SJNjfWgePpNUx7tToDtjjoNeYlrf?usp=sharing
 
